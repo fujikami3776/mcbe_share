@@ -32,7 +32,8 @@ var markerStyle = new ol.style.Style({
     //     })
     // }),
     image: new ol.style.Icon({
-        src: 'img/sdesign_00247.png',
+        // from https://illustcenter.com/2023/06/06/sdesign_00247/
+        src: './img/sdesign_00247.png',
         scale: 0.1,
         anchor: [0.5, 1],
     }),
@@ -70,7 +71,7 @@ function addMainLayer() {
 
     var imageLayer = new ol.layer.Image({
         source: new ol.source.ImageStatic({
-            url: "../img/ochafuji.png",
+            url: "./img/ochafuji.png",
             imageExtent: imageExtent,
             interpolate: false
         })
