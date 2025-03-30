@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>mcbe_visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- OpenLayers -->
+    <script src="https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css" />
+    <script src="map.js"></script>
+</head>
+<body>
+    <h1>MCBE Visualizer</h1>
+    <label for="toggle-marker">マーカーの表示/非表示</label>
+    <input type="checkbox" id="toggle-marker" checked>
+    <div id="map" class="map"></div>
+    <div id="coordinate-display">&nbsp;</div>
+    <div id="info">
+        <div class="info-container">
+            <div id="info-title">&nbsp;</div><div id="info-coordinate">&nbsp;</div>
+        </div>
+        <div id="info-description">&nbsp;</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+body {
+    background-color: #fffafa;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 {
+	margin: 0.2em;
+}
+
+#map {
+	overflow: hidden;
+	max-width: 2000px;
+	width: 100vw;
+    height: 80vh;
+	/* margin: 30px 30px 0; */
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+	/* padding: 20px 40px 40px; */
+	background: #FFFFFF;
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
+}
+
+img {
+	image-rendering: pixelated;
+	image-rendering: crisp-edges;
+}
+
+
+#coordinate-display {
+	background: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
+	padding: 5px;
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+#info {
+	text-align: center;
+	background: rgba(255, 255, 255, 0.9);
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.info-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+#info-title {
+	font-size: large;
+}
+
+#info-description{
+	color: rgb(117, 117, 117);
+	font-size: small;
+	max-width: 30vw;
+}
