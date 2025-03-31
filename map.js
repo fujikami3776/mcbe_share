@@ -5,13 +5,14 @@ const markers = [
     {x: -400, y: "", z: -300, name: '村', zoomMin: -1, zoomMax: 3, description: "雪山の斜面に面した村。立地最悪。アイアンゴーレムが1体。"},
     {x: -6, y: "", z: 0, name: 'リスポーン地点', zoomMin: 4, zoomMax: 7, description: "還る場所を無くした魂が辿り着く場所。"},
     {x: 128, y: -18, z: 553, name: 'スケルトンスポナー', zoomMin: 1, zoomMax: 7, description: "スケさんトラップ建設予定地。"},
+    {x: -1529, y: "", z: 463, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "深いところにあるため未探索"},
 ];
 
 // Size of map
-const chunkXMin = -40;
-const chunkXMax = 37;
+const chunkXMin = -166;
+const chunkXMax = 48;
 const chunkZMin = -34;
-const chunkZMax = 52;
+const chunkZMax = 127;
 
 var coordinateDisplay = null;
 var infoTitle = null;
