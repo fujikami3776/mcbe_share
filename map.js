@@ -4,15 +4,24 @@ const markers = [
     {x: 79, y: "", z: 378, name: '拠点', zoomMin: -1, zoomMax: 3, description: "ここは拠点。"},
     {x: -400, y: "", z: -300, name: '村', zoomMin: -1, zoomMax: 3, description: "雪山の斜面に面した村。立地最悪。アイアンゴーレムが1体。"},
     {x: -6, y: "", z: 0, name: 'リスポーン地点', zoomMin: 4, zoomMax: 7, description: "還る場所を無くした魂が辿り着く場所。"},
-    {x: 128, y: -18, z: 553, name: 'スケルトンスポナー', zoomMin: 1, zoomMax: 7, description: "スケさんトラップ建設予定地。"},
+    {x: 128, y: -18, z: 553, name: 'スケルトンスポナー', zoomMin: 1, zoomMax: 7, description: "落下式スケさんトラップ。"},
     {x: -1529, y: "", z: 463, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "深いところにあるため未探索"},
+    {x: 134, y: -25, z: 589, name: '試練の間', zoomMin: 1, zoomMax: 7, description: "おちゃが死にかけた。未探索"},
+    {x: -157, y: "", z: -364, name: 'イグルー', zoomMin: 1, zoomMax: 7, description: "村人ゾンビ蘇生中。"},
+    {x: 790, y: "", z: 675, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "一部が地上に出ている。シーランタンあり。"},
+    {x: 769, y: "", z: 1471, name: '壊れたポータル', zoomMin: 1, zoomMax: 7, description: "鉄ツルハシがなくて金ブロック未回収。"},
+    {x: -603, y: "", z: 1096, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "未探索。"},
+    // {x: -284, y: "", z: 1479, name: '炭鉱', zoomMin: 1, zoomMax: 7, description: "予定地。"},
+    {x: -2480, y: "", z: 800, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
+    {x: -2590, y: "", z: 1280, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
+    {x: -2010, y: "", z: 1960, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
 ];
 
 // Size of map
 const chunkXMin = -166;
-const chunkXMax = 48;
+const chunkXMax = 118;
 const chunkZMin = -34;
-const chunkZMax = 127;
+const chunkZMax = 130;
 
 var coordinateDisplay = null;
 var infoTitle = null;
