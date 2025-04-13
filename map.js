@@ -15,6 +15,14 @@ const markers = [
     {x: -2480, y: "", z: 800, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
     {x: -2590, y: "", z: 1280, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
     {x: -2010, y: "", z: 1960, name: '村', zoomMin: -1, zoomMax: 3, description: "村"},
+    {x: -395, y: 6, z: 1382, name: 'アメジストジオード', zoomMin: 1, zoomMax: 7, description: "「ジオード」が一発で変換できなくて予測変換が「時オードリー」。"},
+    {x: -588, y: "", z: 1668, name: '壊れたポータル', zoomMin: 1, zoomMax: 7, description: "チェストの中身回収済み。"},
+    {x: -475, y: -9, z: 1375, name: 'スケルトンスポナー', zoomMin: 1, zoomMax: 7, description: "逃げたので未制圧。"},
+    {x: -307, y: "", z: 248, name: '壊れたポータル', zoomMin: 1, zoomMax: 7, description: "水没。"},
+    {x: -1200, y: "", z: 1006, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "未探索。"},
+    {x: -1099, y: "", z: 810, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "未探索。"},
+    {x: -1199, y: "", z: 490, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "未探索。"},
+    {x: -1499, y: "", z: 506, name: '海底遺跡', zoomMin: 1, zoomMax: 7, description: "未探索。"},
 ];
 
 // Size of map
