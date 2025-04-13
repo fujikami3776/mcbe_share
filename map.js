@@ -26,7 +26,7 @@ const markers = [
 ];
 
 // Size of map
-const chunkXMin = -166;
+const chunkXMin = -177;
 const chunkXMax = 118;
 const chunkZMin = -34;
 const chunkZMax = 130;
