@@ -27,12 +27,6 @@
 
 let markers = [];
 
-const csvUrl = "https://sheets.googleapis.com/v4/spreadsheets/17_VMKtk2IYbEzf0A04EKAy5E3JMLPamxYFRiwlLemQc/values/sheet1?key=AIzaSyD1uf3BzD9GPxQ-_XkKQPhXLu1rH3BwMpc";
-
-// https://docs.google.com/spreadsheets/d/17_VMKtk2IYbEzf0A04EKAy5E3JMLPamxYFRiwlLemQc/edit?usp=sharing
-// AIzaSyD1uf3BzD9GPxQ-_XkKQPhXLu1rH3BwMpc
-// https://sheets.googleapis.com/v4/spreadsheets/17_VMKtk2IYbEzf0A04EKAy5E3JMLPamxYFRiwlLemQc/values/sheet1?key=AIzaSyD1uf3BzD9GPxQ-_XkKQPhXLu1rH3BwMpc
-
 
 // Size of map
 const chunkXMin = -177;
@@ -82,15 +76,20 @@ function updateMarker(vectorSource) {
 
 async function loadCsv() {
     try{
-        const res = await fetch(csvUrl);
+        const res = await fetch('/api/data');
         if(!res.ok){
-            throw new Error('HTTP error: ${res.status}');
+            throw new Error('Error: ${res.status}');
         }
+
         const data = await res.json();
 
-        const rows = data.values;
-        const headers = rows[0];
-        const entries = rows.slice(1);
+        // const rows = data.values;
+        // const headers = rows[0];
+        // const entries = rows.slice(1);
+
+        // console.log(headers);
+        const headers = data[0];
+        const entries = data.slice(1);
 
         return entries.map(row =>{
             const obj = {};
