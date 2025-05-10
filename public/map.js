@@ -31,7 +31,7 @@ let markers = [];
 // Size of map
 const chunkXMin = -177;
 const chunkXMax = 118;
-const chunkZMin = -34;
+const chunkZMin = -125;
 const chunkZMax = 130;
 
 var coordinateDisplay = null;
@@ -83,11 +83,6 @@ async function loadCsv() {
 
         const data = await res.json();
 
-        // const rows = data.values;
-        // const headers = rows[0];
-        // const entries = rows.slice(1);
-
-        // console.log(headers);
         const headers = data[0];
         const entries = data.slice(1);
 
@@ -99,8 +94,8 @@ async function loadCsv() {
             obj.x = parseFloat(obj.x);
             obj.y = parseFloat(obj.y);
             obj.z = parseFloat(obj.z);
-            obj.minZoom = parseFloat(obj.minZoom);
-            obj.maxZoom = parseFloat(obj.maxZoom);
+            obj.zoomMin = parseFloat(obj.zoomMin);
+            obj.zoomMax = parseFloat(obj.zoomMax);
             return obj;
         });
     } catch (error) {
@@ -225,7 +220,7 @@ function addMainLayer(markers) {
             var coordinate = markerFeature.getGeometry().getCoordinates();
             
             infoTitle.innerHTML = markerFeature.get("name");
-            if(markerFeature.get("y_pos") == ""){
+            if(markerFeature.get("y_pos") == NaN){
                 infoCoordinate.innerHTML = " (" + markerFeature.get("x_pos") + ", " + markerFeature.get("z_pos") + " )";
             } else {
                 infoCoordinate.innerHTML = " (" + markerFeature.get("x_pos") + ", " + markerFeature.get("y_pos") + ", " + markerFeature.get("z_pos") + " )";

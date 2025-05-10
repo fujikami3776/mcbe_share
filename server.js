@@ -20,11 +20,10 @@ app.get('/api/data', async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth });
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SPREADSHEET_ID,
-      range: 'Sheet1!A1:G30',
+      range: 'Sheet1!A1:G50',
     });
 
     res.json(result.data.values);
-    console.log("csv loaded.");
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error fetching spreadsheet data' });
