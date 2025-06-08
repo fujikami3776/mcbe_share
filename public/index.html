@@ -12,10 +12,20 @@
 </head>
 <body>
     <h1>MCBE Visualizer</h1>
+
     <label for="toggle-marker">マーカーの表示/非表示</label>
     <input type="checkbox" id="toggle-marker" checked>
+
     <div id="map" class="map"></div>
+
+    <button id="menuButton">^ Dimention</button>
+    <ul id="dimentionMenu" class="hidden">
+      <li data-id="0">Overworld</li>
+      <li data-id="1">Nether</li>
+    </ul>
+
     <div id="coordinate-display">&nbsp;</div>
+
     <div id="info">
         <div class="info-container">
             <div id="info-title">&nbsp;</div><div id="info-coordinate">&nbsp;</div>

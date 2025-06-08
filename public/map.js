@@ -29,15 +29,94 @@ let markers = [];
 
 
 // Size of map
-const chunkXMin = -177;
-const chunkXMax = 118;
-const chunkZMin = -125;
-const chunkZMax = 130;
+const overworldChunkXMin = -177;
+const overworldChunkXMax = 147;
+const overworldChunkZMin = -149;
+const overworldChunkZMax = 130;
+const overworldChunkXMin_1 = 43;
+const overworldChunkXMax_1 = 109;
+const overworldChunkZMin_1 = 313;
+const overworldChunkZMax_1 = 403;
+const netherChunkXMin = -28;
+const netherChunkXMax = 78;
+const netherChunkZMin = -16;
+const netherChunkZMax = 74;
+
+const imageExtents = [
+    [overworldChunkXMin * 16, (overworldChunkZMax + 1) * (-16), (overworldChunkXMax + 1) * 16, overworldChunkZMin * (-16)],
+    [overworldChunkXMin_1 * 16, (overworldChunkZMax_1 + 1) * (-16), (overworldChunkXMax_1 + 1) * 16, overworldChunkZMin_1 * (-16)],
+    [netherChunkXMin * 16, (netherChunkZMax + 1) * (-16), (netherChunkXMax + 1) * 16, netherChunkZMin * (-16)],
+];
+
+const layers = [
+    {
+        name: 'overworld',
+        layers: [
+            new ol.layer.Image({
+                source: new ol.source.ImageStatic({
+                    url: "./img/overworld_block.png",
+                    imageExtent: imageExtents[0],
+                    interpolate: false
+                }),
+                zIndex: 0,
+            }),
+            new ol.layer.Image({
+                source: new ol.source.ImageStatic({
+                    url: "./img/overworld_block_1.png",
+                    imageExtent: imageExtents[1],
+                    interpolate: false
+                }),
+                zIndex: 0,
+            }),
+        
+        ],
+        view: new ol.View({
+            projection: new ol.proj.Projection({
+                code: "pixel",
+                units: "pixels",
+                extent: imageExtents[0]
+            }),
+            center: [70, -350],
+            zoom: 2,
+            minZoom: -1,
+            maxZoom: 7,
+        })
+    },
+    {
+        name: 'nether',
+        layers: [
+            new ol.layer.Image({
+                source: new ol.source.ImageStatic({
+                    url: "./img/nether_block.png",
+                    imageExtent: imageExtents[2],
+                    interpolate: false
+                }),
+                zIndex: 0
+            })
+        ],
+        view: new ol.View({
+            projection: new ol.proj.Projection({
+                code: "pixel",
+                units: "pixels",
+                extent: imageExtents[2]
+            }),
+            center: [10, -50],
+            zoom: 2,
+            minZoom: -1,
+            maxZoom: 7,
+        })
+    },
+];
 
 var coordinateDisplay = null;
 var infoTitle = null;
 var infoCoordinate = null;
 var infoDescription = null;
+var menuButton = null;
+var dimentionMenu = null;
+
+let currentLayers = layers[0].layers;
+var currentDimention = 0;
 
 var map = null;
 
@@ -63,13 +142,19 @@ var markerStyle = new ol.style.Style({
 function updateMarker(vectorSource) {
     var zoom = map.getView().getZoom();
     vectorSource.getFeatures().forEach(markerFeature => {
-    var zoomMin = markerFeature.get('zoomMin');
-    var zoomMax = markerFeature.get('zoomMax');
-    if(zoom < zoomMin || zoomMax < zoom ){
-        markerFeature.setStyle(new ol.style.Style({}));
-    } else{
-        markerFeature.setStyle(markerStyle)
-    }
+        var dimention = markerFeature.get('dimention');
+
+        if(dimention == currentDimention){
+            var zoomMin = markerFeature.get('zoomMin');
+            var zoomMax = markerFeature.get('zoomMax');
+            if(zoom < zoomMin || zoomMax < zoom ){
+                markerFeature.setStyle(new ol.style.Style({}));
+            } else {
+                markerFeature.setStyle(markerStyle)
+            }
+        } else {
+            markerFeature.setStyle(new ol.style.Style({}));
+        }
     });
 }
 
@@ -91,8 +176,9 @@ async function loadCsv() {
             headers.forEach((key, i) => {
                 obj[key] = i < row.length ? row[i] : "";
             });
+            obj.dimention = parseInt(obj.dimention);
             obj.x = parseFloat(obj.x);
-            obj.y = parseFloat(obj.y);
+            // obj.y = parseFloat(obj.y);
             obj.z = parseFloat(obj.z);
             obj.zoomMin = parseFloat(obj.zoomMin);
             obj.zoomMax = parseFloat(obj.zoomMax);
@@ -130,35 +216,46 @@ function getElement() {
     infoCoordinate = document.getElementById("info-coordinate");
     infoDescription = document.getElementById("info-description");
     toggleMarker = document.getElementById("toggle-marker");
+    menuButton = document.getElementById("menuButton");
+    dimentionMenu = document.getElementById("dimentionMenu");
 }
 
 function addMainLayer(markers) {
 
-    var imageExtent = [chunkXMin * 16, (chunkZMax + 1) * (-16), (chunkXMax + 1) * 16, chunkZMin * (-16)];
+    // var imageExtent = [chunkXMin * 16, (chunkZMax + 1) * (-16), (chunkXMax + 1) * 16, chunkZMin * (-16)];
 
-    var imageLayer = new ol.layer.Image({
-        source: new ol.source.ImageStatic({
-            url: "./img/ochafuji.png",
-            imageExtent: imageExtent,
-            interpolate: false
-        })
-    });
+    // var imageLayer = new ol.layer.Image({
+    //     source: new ol.source.ImageStatic({
+    //         url: "./img/ochafuji.png",
+    //         imageExtent: imageExtents[0],
+    //         interpolate: false
+    //     })
+    // });
 
     map = new ol.Map({
-        target: "map",
-        layers: [imageLayer],
-        view: new ol.View({
-            projection: new ol.proj.Projection({
-                code: "pixel",
-                units: "pixels",
-                extent: imageExtent
-            }),
-            center: [70, -350],
-            zoom: 2,
-            minZoom: -1,
-            maxZoom: 7,
-        })
+        target: 'map',
+        // layers: [currentLayers],
+        view: layers[0].view
     });
+    for (const layer of currentLayers) {
+        map.addLayer(layer);
+    }
+
+    // map = new ol.Map({
+    //     target: "map",
+    //     layers: [imageLayer],
+    //     view: new ol.View({
+    //         projection: new ol.proj.Projection({
+    //             code: "pixel",
+    //             units: "pixels",
+    //             extent: imageExtents[0]
+    //         }),
+    //         center: [70, -350],
+    //         zoom: 2,
+    //         minZoom: -1,
+    //         maxZoom: 7,
+    //     })
+    // });
 
     
     map.on('pointermove', function (event) {
@@ -174,7 +271,8 @@ function addMainLayer(markers) {
 
     var vectorSource = new ol.source.Vector();
     var vectorLayer = new ol.layer.Vector({
-        source: vectorSource
+        source: vectorSource,
+        zIndex: 1,
     });
     map.addLayer(vectorLayer);
 
@@ -186,6 +284,7 @@ function addMainLayer(markers) {
         var markerFeature = new ol.Feature({
             geometry: new ol.geom.Point([x, z]),
             name: marker.name,
+            dimention: marker.dimention,
             x_pos: marker.x,
             y_pos: marker.y,
             z_pos: marker.z,
@@ -220,7 +319,7 @@ function addMainLayer(markers) {
             var coordinate = markerFeature.getGeometry().getCoordinates();
             
             infoTitle.innerHTML = markerFeature.get("name");
-            if(markerFeature.get("y_pos") == NaN){
+            if(markerFeature.get("y_pos") == ""){
                 infoCoordinate.innerHTML = " (" + markerFeature.get("x_pos") + ", " + markerFeature.get("z_pos") + " )";
             } else {
                 infoCoordinate.innerHTML = " (" + markerFeature.get("x_pos") + ", " + markerFeature.get("y_pos") + ", " + markerFeature.get("z_pos") + " )";
@@ -238,6 +337,44 @@ function addMainLayer(markers) {
             vectorLayer.setVisible(true);
         } else {
             vectorLayer.setVisible(false);
+        }
+    });
+
+
+    menuButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dimentionMenu.classList.toggle('hidden');
+    });
+
+    dimentionMenu.addEventListener('click', (e) => {
+        if (e.target.tagName === 'LI') {
+            const id = parseInt(e.target.dataset.id, 10);
+            const selected = layers[id];
+
+            for (const layer of currentLayers) {
+                map.removeLayer(layer);
+            }
+            for (const layer of selected.layers) {
+                map.addLayer(layer);
+            }
+            currentLayers = selected.layers;
+
+            currentDimention = id;
+
+            map.setView(selected.view);
+            updateMarker(vectorSource);
+            map.getView().on('change:resolution', function () {
+                updateMarker(vectorSource);
+            });
+
+            dimentionMenu.classList.add('hidden');
+        }
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!menuButton.contains(e.target) && !dimentionMenu.contains(e.target)) {
+            dimentionMenu.classList.add('hidden');
         }
     });
 

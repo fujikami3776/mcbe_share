@@ -6,7 +6,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-console.log('Environment: ', process.env.NODE_ENV);
+console.log('Environment:', process.env.NODE_ENV);
 
 app.use(express.static('public'));
 
@@ -14,8 +14,8 @@ app.get('/api/data', async (req, res) => {
   try {
     if (process.env.NODE_ENV === 'test') {
       return res.json([
-        ['name', 'x', 'y', 'z', 'zoomMin', 'zoomMax', 'description'],
-        ['拠点', '79', '', '378', '-1', '3', 'ここは拠点'],
+        ['name', 'dimention', 'x', 'y', 'z', 'zoomMin', 'zoomMax', 'description'],
+        ['拠点', '0', '79', '', '378', '-1', '3', 'ここは拠点'],
       ]);
     }
 
@@ -29,7 +29,7 @@ app.get('/api/data', async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth });
     const result = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SPREADSHEET_ID,
-      range: 'Sheet1!A1:G50',
+      range: 'Sheet1!A1:H50',
     });
 
     res.json(result.data.values);
