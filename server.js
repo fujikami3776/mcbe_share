@@ -6,10 +6,19 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+console.log('Environment: ', process.env.NODE_ENV);
+
 app.use(express.static('public'));
 
 app.get('/api/data', async (req, res) => {
   try {
+    if (process.env.NODE_ENV === 'test') {
+      return res.json([
+        ['name', 'x', 'y', 'z', 'zoomMin', 'zoomMax', 'description'],
+        ['拠点', '79', '', '378', '-1', '3', 'ここは拠点'],
+      ]);
+    }
+
     const auth = new google.auth.JWT(
       process.env.GOOGLE_CLIENT_EMAIL,
       null,
